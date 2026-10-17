@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller.js';
+import httpMocks from 'node-mocks-http';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -18,4 +19,18 @@ describe('UserController', () => {
     const response = await controller.sayHello('Muhammad', "Mujahid");
     expect(response).toBe('Hello Muhammad Mujahid')
   });
+
+  it('should get cookie', () => {
+    const request = httpMocks.createRequest({
+      cookies: {
+        name: 'Muhammad Mujahid'
+      }
+    });
+
+    const response = controller.getCookie(request);
+
+    expect(response).toEqual({
+      data: `Muhammad Mujahid`
+    })
+  })
 });
