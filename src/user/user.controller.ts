@@ -2,12 +2,14 @@ import { Controller, Get, Header, HttpCode , type HttpRedirectResponse, Inject, 
 import type { Response, Request } from 'express';
 import { UserService } from './user.service.js';
 import { Connection } from './connection/connection.js';
+import { MailService } from './mail/mail.service.js';
 
 @Controller('/users')
 export class UserController {
     constructor(
         private userService: UserService,
-        private connection: Connection
+        private connection: Connection,
+        private mailService: MailService
     ){} //constructor-based dependency injection
 
     // @Inject()
@@ -46,6 +48,7 @@ export class UserController {
     
     @Get('/connection')
     async getConnection(): Promise<string|null> {
+        this.mailService.send();
         return this.connection.getName();
     }
 
