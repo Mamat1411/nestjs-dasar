@@ -1,12 +1,16 @@
-import { Controller, Get, Param, Post, Query, Res } from '@nestjs/common';
+import { Controller, Get, Header, HttpCode, Param, Post, Query, Res } from '@nestjs/common';
 import type { Response } from 'express';
 
 @Controller('/users')
 export class UserController {
 
     @Get('/sample-response')
-    sampleResponse(@Res() response: Response) {
-        response.status(200).send("Sample Response");
+    @Header("Content-Type", "application/json")
+    @HttpCode(200)
+    sampleResponse() : Record<string, string> {
+        return {
+            data: "Hello JSON"
+        }
     }
 
     @Get('/sample')
