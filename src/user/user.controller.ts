@@ -1,7 +1,13 @@
-import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query, Res } from '@nestjs/common';
+import type { Response } from 'express';
 
 @Controller('/users')
 export class UserController {
+
+    @Get('/sample-response')
+    sampleResponse(@Res() response: Response) {
+        response.status(200).send("Sample Response");
+    }
 
     @Get('/sample')
     get(): string {
