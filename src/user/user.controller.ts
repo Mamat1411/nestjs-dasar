@@ -11,6 +11,7 @@ export class UserController {
         private userService: UserService,
         private connection: Connection,
         private mailService: MailService,
+        @Inject('EmailService') private emailService: MailService,
         private userRepository: UserRepository
     ){} //constructor-based dependency injection
 
@@ -52,6 +53,7 @@ export class UserController {
     async getConnection(): Promise<string|null> {
         this.userRepository.save();
         this.mailService.send();
+        this.emailService.send();
         return this.connection.getName();
     }
 
