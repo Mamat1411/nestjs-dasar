@@ -1,10 +1,13 @@
-import { Controller, Get, Header, HttpCode , type HttpRedirectResponse, Param, Post, Query, Redirect, Req, Res } from '@nestjs/common';
+import { Controller, Get, Header, HttpCode , type HttpRedirectResponse, Inject, Param, Post, Query, Redirect, Req, Res } from '@nestjs/common';
 import type { Response, Request } from 'express';
 import { UserService } from './user.service.js';
 
 @Controller('/users')
 export class UserController {
-    constructor(private userService: UserService){}
+    // constructor(private userService: UserService){} //constructor-based dependency injection
+
+    @Inject()
+    private userService: UserService; //property-based dependency injection
 
     @Get('/sample-response')
     @Header("Content-Type", "application/json")
