@@ -27,10 +27,10 @@ export class UserController {
     }
 
     @Get('/hello')
-    sayHello(
+    async sayHello(
         @Query('first_name') first_name: string,
         @Query('last_name') last_name: string
-    ): string {
+    ): Promise<string> {
         return `Hello ${first_name} ${last_name}`;
     }
 
