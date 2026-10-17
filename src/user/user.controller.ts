@@ -1,13 +1,17 @@
 import { Controller, Get, Header, HttpCode , type HttpRedirectResponse, Inject, Param, Post, Query, Redirect, Req, Res } from '@nestjs/common';
 import type { Response, Request } from 'express';
 import { UserService } from './user.service.js';
+import { Connection } from './connection/connection.js';
 
 @Controller('/users')
 export class UserController {
-    // constructor(private userService: UserService){} //constructor-based dependency injection
+    constructor(
+        private userService: UserService,
+        private connection: Connection
+    ){} //constructor-based dependency injection
 
-    @Inject()
-    private userService: UserService; //property-based dependency injection
+    // @Inject()
+    // private userService: UserService; //property-based dependency injection
 
     @Get('/sample-response')
     @Header("Content-Type", "application/json")
@@ -38,6 +42,11 @@ export class UserController {
         @Query('last_name') last_name: string
     ): Promise<string> {
         return this.userService.sayHello(first_name, last_name);
+    }
+    
+    @Get('/connection')
+    async getConnection(): Promise<string|null> {
+        return this.connection.getName();
     }
 
     @Get('/set-cookie')
