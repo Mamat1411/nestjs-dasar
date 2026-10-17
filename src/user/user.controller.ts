@@ -1,5 +1,4 @@
 import { Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
-import type { Request } from 'express';
 
 @Controller('/users')
 export class UserController {
