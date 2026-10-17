@@ -10,8 +10,11 @@ export class UserController {
     }
 
     @Get('/hello')
-    sayHello(@Query('name') name: string): string {
-        return `Hello ${name || 'Guest'}`;
+    sayHello(
+        @Query('first_name') first_name: string,
+        @Query('last_name') last_name: string
+    ): string {
+        return `Hello ${first_name} ${last_name}`;
     }
 
     @Post()
