@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller.js';
 import httpMocks from 'node-mocks-http';
+import { UserService } from './user.service.js';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -9,7 +10,7 @@ describe('UserController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
       imports: [],
-      providers: []
+      providers: [UserService]
     }).compile();
 
     controller = module.get<UserController>(UserController);

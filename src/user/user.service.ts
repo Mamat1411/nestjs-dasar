@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UserService {
-    sayHello(name: string): string{
-        return `Hello ${name}`;
+    sayHello(
+        first_name: string,
+        last_name: string
+    ): string{
+        return `Hello ${first_name} ${last_name}`;
     }
 }

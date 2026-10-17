@@ -1,8 +1,10 @@
 import { Controller, Get, Header, HttpCode , type HttpRedirectResponse, Param, Post, Query, Redirect, Req, Res } from '@nestjs/common';
 import type { Response, Request } from 'express';
+import { UserService } from './user.service.js';
 
 @Controller('/users')
 export class UserController {
+    constructor(private userService: UserService){}
 
     @Get('/sample-response')
     @Header("Content-Type", "application/json")
@@ -32,7 +34,7 @@ export class UserController {
         @Query('first_name') first_name: string,
         @Query('last_name') last_name: string
     ): Promise<string> {
-        return `Hello ${first_name} ${last_name}`;
+        return this.userService.sayHello(first_name, last_name);
     }
 
     @Get('/set-cookie')
