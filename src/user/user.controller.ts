@@ -3,13 +3,15 @@ import type { Response, Request } from 'express';
 import { UserService } from './user.service.js';
 import { Connection } from './connection/connection.js';
 import { MailService } from './mail/mail.service.js';
+import { UserRepository } from './repository/user.repository.js';
 
 @Controller('/users')
 export class UserController {
     constructor(
         private userService: UserService,
         private connection: Connection,
-        private mailService: MailService
+        private mailService: MailService,
+        private userRepository: UserRepository
     ){} //constructor-based dependency injection
 
     // @Inject()
@@ -48,6 +50,7 @@ export class UserController {
     
     @Get('/connection')
     async getConnection(): Promise<string|null> {
+        this.userRepository.save();
         this.mailService.send();
         return this.connection.getName();
     }
